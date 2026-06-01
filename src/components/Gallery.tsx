@@ -1,39 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
 const images = [
-  { src: "/Kirpik1.jpg", alt: "Korean Lashlift Ergebnis" },
-  { src: "/Kirpik2.jpg", alt: "Wimpernlifting Nahaufnahme" },
-  { src: "/Kirpik3.jpg", alt: "Lashlift Behandlung" },
-  { src: "/Kirpik4.jpg", alt: "Korean Browlift" },
-  { src: "/Kirpk5.jpg", alt: "Wimpernverlängerung Classic 1:1" },
-  { src: "/Kirpik6.jpg", alt: "Lashextensions Detailaufnahme" },
-  { src: "/Kirpik7.jpg", alt: "Wimpern Behandlung" },
-  { src: "/kas1.jpg", alt: "Browlift Ergebnis" },
-  { src: "/Kiz1.jpg", alt: "Bridal Make-Up Ergebnis" },
-  { src: "/kiz2.jpg", alt: "Soft Glam Make-Up" },
-  { src: "/kiz3.jpg", alt: "Glam Make-Up Look" },
-  { src: "/bakim1.jpg", alt: "Beauty Behandlung" },
+  { src: "/Kirpik1.jpg", alt: "Korean Lashlift Ergebnis – Yalina Beauty Senden" },
+  { src: "/Kirpik2.jpg", alt: "Wimpernlifting Nahaufnahme – Yalina Beauty" },
+  { src: "/Kirpik3.jpg", alt: "Lashlift Behandlung – Yalina Beauty Bayern" },
+  { src: "/Kirpik4.jpg", alt: "Korean Browlift – Yalina Beauty Senden" },
+  { src: "/Kirpk5.jpg", alt: "Wimpernverlängerung Classic 1:1 – Yalina Beauty" },
+  { src: "/Kirpik6.jpg", alt: "Lashextensions Detailaufnahme – Yalina Beauty" },
+  { src: "/Kirpik7.jpg", alt: "Wimpern Behandlung Ergebnis – Yalina Beauty" },
+  { src: "/kas1.jpg", alt: "Browlift Ergebnis – Yalina Beauty Senden" },
+  { src: "/Kiz1.jpg", alt: "Bridal Make-Up Ergebnis – Yalina Beauty Bayern" },
+  { src: "/kiz2.jpg", alt: "Soft Glam Make-Up Look – Yalina Beauty" },
+  { src: "/kiz3.jpg", alt: "Glam Make-Up Look – Yalina Beauty Senden" },
+  { src: "/bakim1.jpg", alt: "Beauty Behandlung – Yalina Beauty Senden" },
 ];
 
 export default function Gallery() {
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   const openLightbox = (idx: number) => setLightbox(idx);
-  const closeLightbox = () => setLightbox(null);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
 
-  const prev = () => {
-    if (lightbox === null) return;
-    setLightbox((lightbox - 1 + images.length) % images.length);
-  };
+  const prev = useCallback(() => {
+    setLightbox((cur) => (cur === null ? null : (cur - 1 + images.length) % images.length));
+  }, []);
 
-  const next = () => {
+  const next = useCallback(() => {
+    setLightbox((cur) => (cur === null ? null : (cur + 1) % images.length));
+  }, []);
+
+  // Keyboard navigation + scroll lock
+  useEffect(() => {
     if (lightbox === null) return;
-    setLightbox((lightbox + 1) % images.length);
-  };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") prev();
+      else if (e.key === "ArrowRight") next();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox, closeLightbox, prev, next]);
 
   return (
     <section
@@ -67,23 +84,34 @@ export default function Gallery() {
         </div>
 
         {/* Masonry Grid */}
-        <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
+        <div className="columns-2 sm:columns-3 lg:columns-4 gap-3">
           {images.map((img, idx) => (
             <div
               key={img.src}
-              className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-xl"
+              className="break-inside-avoid mb-3 cursor-pointer group relative overflow-hidden rounded-xl"
               onClick={() => openLightbox(idx)}
               role="button"
               tabIndex={0}
               aria-label={`Bild vergrößern: ${img.alt}`}
-              onKeyDown={(e) => e.key === "Enter" && openLightbox(idx)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openLightbox(idx);
+                }
+              }}
             >
-              <div className="relative w-full" style={{ paddingBottom: idx % 3 === 0 ? "130%" : idx % 3 === 1 ? "100%" : "80%" }}>
+              <div
+                className="relative w-full"
+                style={{
+                  paddingBottom:
+                    idx % 3 === 0 ? "130%" : idx % 3 === 1 ? "100%" : "80%",
+                }}
+              >
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
-                  loading="lazy"
+                  loading={idx < 4 ? "eager" : "lazy"}
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
@@ -95,12 +123,7 @@ export default function Gallery() {
                     className="w-10 h-10 rounded-full flex items-center justify-center"
                     style={{ background: "rgba(253,249,245,0.9)" }}
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B76E79" strokeWidth="2">
-                      <circle cx="11" cy="11" r="8" />
-                      <path d="m21 21-4.35-4.35" />
-                      <line x1="11" y1="8" x2="11" y2="14" />
-                      <line x1="8" y1="11" x2="14" y2="11" />
-                    </svg>
+                    <ZoomIn size={16} style={{ color: "#B76E79" }} />
                   </div>
                 </div>
               </div>
@@ -131,11 +154,15 @@ export default function Gallery() {
       {lightbox !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: "rgba(61,43,31,0.95)" }}
+          style={{ background: "rgba(61,43,31,0.96)" }}
           onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Bildvorschau"
         >
+          {/* Close */}
           <button
-            className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center z-10 transition-opacity hover:opacity-70"
+            className="absolute top-4 right-4 w-11 h-11 rounded-full flex items-center justify-center z-10 transition-opacity hover:opacity-70"
             style={{ background: "rgba(253,249,245,0.15)", color: "#FDF9F5" }}
             onClick={closeLightbox}
             aria-label="Schließen"
@@ -143,8 +170,9 @@ export default function Gallery() {
             <X size={20} />
           </button>
 
+          {/* Prev */}
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center z-10 transition-opacity hover:opacity-70"
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center z-10 transition-opacity hover:opacity-70"
             style={{ background: "rgba(253,249,245,0.15)", color: "#FDF9F5" }}
             onClick={(e) => { e.stopPropagation(); prev(); }}
             aria-label="Vorheriges Bild"
@@ -152,8 +180,9 @@ export default function Gallery() {
             <ChevronLeft size={22} />
           </button>
 
+          {/* Next */}
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center z-10 transition-opacity hover:opacity-70"
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center z-10 transition-opacity hover:opacity-70"
             style={{ background: "rgba(253,249,245,0.15)", color: "#FDF9F5" }}
             onClick={(e) => { e.stopPropagation(); next(); }}
             aria-label="Nächstes Bild"
@@ -161,8 +190,10 @@ export default function Gallery() {
             <ChevronRight size={22} />
           </button>
 
+          {/* Image */}
           <div
-            className="relative max-w-3xl w-full max-h-[85vh] rounded-2xl overflow-hidden"
+            className="relative w-full max-w-3xl rounded-2xl overflow-hidden"
+            style={{ maxHeight: "80vh" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative w-full" style={{ paddingBottom: "75%" }}>
@@ -171,15 +202,17 @@ export default function Gallery() {
                 alt={images[lightbox].alt}
                 fill
                 className="object-contain"
-                sizes="(max-width: 768px) 100vw, 85vw"
+                sizes="(max-width: 768px) 100vw, 80vw"
                 priority
               />
             </div>
           </div>
 
+          {/* Counter */}
           <p
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs tracking-widest"
-            style={{ color: "rgba(253,249,245,0.5)", fontFamily: "var(--font-raleway), sans-serif" }}
+            className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs tracking-widest"
+            style={{ color: "rgba(253,249,245,0.45)", fontFamily: "var(--font-raleway), sans-serif" }}
+            aria-live="polite"
           >
             {lightbox + 1} / {images.length}
           </p>

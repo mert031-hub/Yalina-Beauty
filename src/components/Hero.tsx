@@ -130,7 +130,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 animate-bounce" aria-hidden="true">
         <span
           className="text-xs tracking-[0.2em] uppercase"
           style={{ color: "rgba(253,249,245,0.6)", fontFamily: "var(--font-raleway), sans-serif" }}

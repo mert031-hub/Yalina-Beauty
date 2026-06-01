@@ -8,6 +8,7 @@ const services = [
     description:
       "Natürlich geschwungene Wimpern für bis zu 8 Wochen – ohne Extensions, ohne Kleber. Inkl. Pflegeöl nach Behandlung.",
     image: "/Kirpik1.jpg",
+    imageAlt: "Korean Lashlift Behandlung – Yalina Beauty Senden",
     price: "ab 58 €",
   },
   {
@@ -16,6 +17,7 @@ const services = [
     description:
       "Perfekt geformte, vollere Brauen mit langanhaltend definiertem Schwung. Inkl. Färbung nach Wunsch & Pflegeöl.",
     image: "/kas1.jpg",
+    imageAlt: "Korean Browlift Ergebnis – Yalina Beauty Bayern",
     price: "ab 65 €",
   },
   {
@@ -24,6 +26,7 @@ const services = [
     description:
       "Das Beste aus zwei Welten: Lashlift und Browlift in einer Behandlung. Inkl. Farbe und Zupfen.",
     image: "/Kirpik4.jpg",
+    imageAlt: "Korean Kombilift Lash und Brow – Yalina Beauty",
     price: "115 €",
   },
   {
@@ -32,6 +35,7 @@ const services = [
     description:
       "Einzelne Wimpernverlängerungen für ein natürlich-glamouröses Ergebnis, das deinen Blick perfekt in Szene setzt.",
     image: "/Kirpik6.jpg",
+    imageAlt: "1:1 Lashextensions Classic – Yalina Beauty Senden",
     price: "ab 48 €",
   },
   {
@@ -40,6 +44,7 @@ const services = [
     description:
       "Strahle an deinem schönsten Tag – Full Face Make-Up mit Fake Lashes und Dekolleté. Perfekt für Hochzeit, Verlobung oder Henna.",
     image: "/Kiz1.jpg",
+    imageAlt: "Bridal Make-Up Hochzeit – Yalina Beauty Bayern",
     price: "98 €",
   },
   {
@@ -48,6 +53,7 @@ const services = [
     description:
       "Dezentes Abend-Make-Up für einen eleganten, femininen Look. Ohne Fake Lashes – natürliche Schönheit im Fokus.",
     image: "/kiz2.jpg",
+    imageAlt: "Soft Glam Make-Up Abend-Look – Yalina Beauty",
     price: "58 €",
   },
   {
@@ -56,6 +62,7 @@ const services = [
     description:
       "Full Face Make-Up mit Fake Lashes für einen unvergesslichen Auftritt. Perfekt für besondere Anlässe.",
     image: "/kiz3.jpg",
+    imageAlt: "Glam Make-Up Full Face – Yalina Beauty Senden",
     price: "68 €",
   },
 ];
@@ -103,7 +110,7 @@ export default function Services() {
               <div className="absolute inset-0">
                 <Image
                   src={service.image}
-                  alt={service.title}
+                  alt={service.imageAlt}
                   fill
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -118,7 +125,7 @@ export default function Services() {
               </div>
 
               {/* Content */}
-              <div className="relative z-10 flex flex-col justify-end h-full p-6" style={{ minHeight: "380px" }}>
+              <div className="relative z-10 flex flex-col justify-end h-full p-6">
                 {/* Top badge */}
                 <div className="absolute top-4 left-4">
                   <span

@@ -18,7 +18,7 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Image Side */}
-          <div className="relative">
+          <div className="relative pb-8 lg:pb-0">
             <div
               className="absolute -top-4 -left-4 w-full h-full rounded-2xl"
               style={{ background: "#F2C4CE", opacity: 0.35 }}

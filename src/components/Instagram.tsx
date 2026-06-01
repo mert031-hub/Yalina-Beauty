@@ -2,12 +2,12 @@ import Image from "next/image";
 import InstagramIcon from "@/components/InstagramIcon";
 
 const previewImages = [
-  "/Kirpik2.jpg",
-  "/Kirpik7.jpg",
-  "/kas1.jpg",
-  "/Kiz1.jpg",
-  "/kiz2.jpg",
-  "/bakim1.jpg",
+  { src: "/Kirpik2.jpg", alt: "Wimpernlifting Ergebnis – Yalina Beauty" },
+  { src: "/Kirpik7.jpg", alt: "Lash Behandlung – Yalina Beauty" },
+  { src: "/kas1.jpg", alt: "Browlift Ergebnis – Yalina Beauty" },
+  { src: "/Kiz1.jpg", alt: "Bridal Make-Up – Yalina Beauty" },
+  { src: "/kiz2.jpg", alt: "Soft Glam Make-Up – Yalina Beauty" },
+  { src: "/bakim1.jpg", alt: "Beauty Studio – Yalina Beauty Senden" },
 ];
 
 export default function InstagramSection() {
@@ -119,32 +119,30 @@ export default function InstagramSection() {
             </div>
           </div>
 
-          {/* Images Grid */}
+          {/* Images Grid — clean 3-column, equal square tiles */}
           <div className="grid grid-cols-3 gap-2">
-            {previewImages.map((src, idx) => (
+            {previewImages.map((img, idx) => (
               <a
-                key={src}
+                key={img.src}
                 href="https://www.instagram.com/yalinabeauty/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`relative overflow-hidden rounded-xl group ${idx === 0 ? "col-span-2 row-span-2" : ""}`}
-                style={{ paddingBottom: idx === 0 ? "100%" : "100%" }}
+                className="relative aspect-square overflow-hidden rounded-xl group"
+                aria-label={`Instagram: ${img.alt}`}
               >
-                <div className="relative w-full h-0" style={{ paddingBottom: "100%" }}>
-                  <Image
-                    src={src}
-                    alt={`Yalina Beauty Instagram Post ${idx + 1}`}
-                    fill
-                    loading="lazy"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 33vw, 25vw"
-                  />
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                    style={{ background: "rgba(183,110,121,0.4)" }}
-                  >
-                    <InstagramIcon size={20} color="#FDF9F5" />
-                  </div>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  loading={idx < 3 ? "eager" : "lazy"}
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 18vw"
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                  style={{ background: "rgba(183,110,121,0.4)" }}
+                >
+                  <InstagramIcon size={20} color="#FDF9F5" />
                 </div>
               </a>
             ))}

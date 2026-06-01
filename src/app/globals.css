@@ -53,6 +53,16 @@ img {
   height: auto;
 }
 
+/* Scroll offset for fixed navbar (80px on desktop, 64px on mobile) */
+section[id] {
+  scroll-margin-top: 64px;
+}
+@media (min-width: 768px) {
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
@@ -68,5 +78,6 @@ img {
 /* Focus ring */
 :focus-visible {
   outline: 2px solid #B76E79;
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
