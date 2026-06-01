@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Palette */
+  --color-nude: #E8D5C4;
+  --color-champagne: #F7E7CE;
+  --color-warm-white: #FDF9F5;
+  --color-blush: #F2C4CE;
+  --color-rose-gold: #B76E79;
+  --color-deep-rose: #9E4F5C;
+  --color-beige: #D4B896;
+  --color-taupe: #8B6F6F;
+  --color-dark-taupe: #5C4033;
+  --color-dark-brown: #3D2B1F;
+
+  /* Typography */
+  --font-heading: var(--font-cormorant), "Georgia", serif;
+  --font-body: var(--font-raleway), "Helvetica Neue", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #FDF9F5;
+  color: #3D2B1F;
+  font-family: var(--font-raleway), "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-cormorant), "Georgia", serif;
+  line-height: 1.15;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #FDF9F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #B76E79;
+  border-radius: 4px;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid #B76E79;
+  outline-offset: 2px;
+}
