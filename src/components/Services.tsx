@@ -43,7 +43,7 @@ const services = [
     subtitle: "Braut & Special Occasion",
     description:
       "Strahle an deinem schönsten Tag – Full Face Make-Up mit Fake Lashes und Dekolleté. Perfekt für Hochzeit, Verlobung oder Henna.",
-    image: "/Kiz1.jpg",
+    image: "/bridal-makeup.jpg",
     imageAlt: "Bridal Make-Up Hochzeit – Yalina Beauty Bayern",
     price: "98 €",
   },
@@ -52,7 +52,7 @@ const services = [
     subtitle: "Make-Up",
     description:
       "Dezentes Abend-Make-Up für einen eleganten, femininen Look. Ohne Fake Lashes – natürliche Schönheit im Fokus.",
-    image: "/kiz2.jpg",
+    image: "/soft-glam.jpg",
     imageAlt: "Soft Glam Make-Up Abend-Look – Yalina Beauty",
     price: "58 €",
   },
@@ -61,7 +61,7 @@ const services = [
     subtitle: "Make-Up",
     description:
       "Full Face Make-Up mit Fake Lashes für einen unvergesslichen Auftritt. Perfekt für besondere Anlässe.",
-    image: "/kiz3.jpg",
+    image: "/glam-makeup.avif",
     imageAlt: "Glam Make-Up Full Face – Yalina Beauty Senden",
     price: "68 €",
   },

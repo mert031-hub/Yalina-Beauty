@@ -8,11 +8,11 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/kiz3.jpg"
+          src="/von3.jpg"
           alt="Yalina Beauty – Premium Beauty Studio Senden"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-[center_20%]"
           sizes="100vw"
         />
         <div
